@@ -530,27 +530,27 @@ public class main {
 		
 	if (dirLocationCheck.isFile()) {
 		File locationTemp = null;
-		Scanner locaScan = null;
-		Scanner locaLine = null;
-		FileWriter locaExists;
-		PrintWriter updateLoca = null;
+		Scanner locationScan = null;
+		Scanner locationLine = null;
+		FileWriter locationExists;
+		PrintWriter updateLocation = null;
 		String readCustomer, readLocation;
 		try {
 			locationTemp = new File ("tempLocationData.txt");
-			locaScan = new Scanner(dirLocationCheck);
-			locaExists = new FileWriter(locationTemp);
-			updateLoca = new PrintWriter(locaExists);
-			while(locaScan.hasNext()) {
-				locaLine = new Scanner (locaScan.nextLine());
-				locaLine.useDelimiter("[,]");
-				readLocation = locaLine.next();
-				readCustomer = locaLine.next();
+			locationScan = new Scanner(dirLocationCheck);
+			locationExists = new FileWriter(locationTemp);
+			updateLocation = new PrintWriter(locationExists);
+			while(locationScan.hasNext()) {
+				locationLine = new Scanner (locationScan.nextLine());
+				locationLine.useDelimiter("[,]");
+				readLocation = locationLine.next();
+				readCustomer = locationLine.next();
 				customerLocation.put(readLocation, readCustomer);
 			}
 			Iterator<Entry<String, String>> printLocationOrder = customerLocation.entrySet().iterator();
 			while(printLocationOrder.hasNext()) {
 				Entry<String, String> nextLocationEntry = printLocationOrder.next();
-				updateLoca.printf("%s, %s \n", nextLocationEntry.getKey(), nextLocationEntry.getValue());
+				updateLocation.printf("%s, %s \n", nextLocationEntry.getKey(), nextLocationEntry.getValue());
 			}
 				
 		} catch (IOException e) {
@@ -560,8 +560,8 @@ public class main {
 			System.out.println("");
 			e.printStackTrace();
 		} finally {
-			locaScan.close();
-			updateLoca.close();
+			locationScan.close();
+			updateLocation.close();
 			dirLocationCheck.delete();
 			File changedLoca = new File("customersLocation.txt");
 			locationTemp.renameTo(changedLoca);
